@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212576184594242824}
   - component: {fileID: 114491492070339760}
   - component: {fileID: 61378152483041916}
+  - component: {fileID: 114592241229564760}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
@@ -79,7 +80,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _velocity: 0
-  _direction: {x: 0, y: 0, z: 0}
+  _direction: {x: 0, y: -1, z: 0}
+--- !u!114 &114592241229564760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836840438940716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bd8fada41999748a9d6be318b6fab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _x: 0
 --- !u!212 &212576184594242824
 SpriteRenderer:
   m_ObjectHideFlags: 1

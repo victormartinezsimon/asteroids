@@ -179,6 +179,9 @@ MonoBehaviour:
     timeBetweenLastAsteroid: 0.1
     velocityMin: 13
     velocityMax: 20
+  _timePlay: 0
+  actualLevel: 0
+  lastAsteroidTime: 0
 --- !u!1 &725654766
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +242,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8.46
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
