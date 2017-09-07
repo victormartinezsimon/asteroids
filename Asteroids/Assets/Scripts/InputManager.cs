@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
 
             if(hit.collider != null)
             {
-                PoolManager.Instance().releaseObject(hit.collider.gameObject);
+                hit.collider.gameObject.GetComponent<DeleteAsteroid>().AsteroidHit();
                 GameManager.Instance().AsteroidDestroyed();
             }
         }

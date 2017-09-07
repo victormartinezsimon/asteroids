@@ -19,18 +19,25 @@ public class GameManager : MonoBehaviour
         public float timeBetweenLastAsteroid;
         public float velocityMin;
         public float velocityMax;
+        public float specialAsteroidPercent;
     }
 
-    public Levels[] _levels;
+    public Levels[] levels;
+    public PoolManager normalPool;
+    public PoolManager specialPool;
+    public int totalLives = 5;
+    public float totalTime = 60;
 
-    public float _timePlay;
+    private bool _isPlayingGame = false;
+    private int _actualLevel = 0;
+    private float _lastAsteroidTime = 0;
 
-    private bool _playingGame = false;
-    public int actualLevel = -31;
-    public float lastAsteroidTime = 0;
+    private Vector2 _bottomLeft;
+    private Vector2 _topRight;
 
-    private Vector2 bottomLeft;
-    private Vector2 topRight;
+    private int _actualLives;
+    private float _actualTimePlay;
+    private int _actualScore;
 
     // Use this for initialization
     void Awake()
@@ -38,8 +45,8 @@ public class GameManager : MonoBehaviour
         _instance = this;
         Random.InitState((int)System.DateTime.Now.Ticks);
 
-        bottomLeft = Camera.main.ScreenToWorldPoint(Vector3.zero);
-        topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        _bottomLeft = Camera.main.ScreenToWorldPoint(Vector3.zero);
+        _topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
     }
 
@@ -47,7 +54,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateUI();
-        if (_playingGame)
+        if (_isPlayingGame)
         {
             UpdateAsteroids(Time.deltaTime);
         }
@@ -55,59 +62,126 @@ public class GameManager : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.A))
             {
-                _playingGame = true;
+                resetGame();
             }
         }
     }
+    /// <summary>
+    /// Generate the asteroids
+    /// </summary>
+    /// <param name="time"></param>
     void UpdateAsteroids(float time)
     {
-        _timePlay += time;
+        _actualTimePlay += time;
 
-        if(_timePlay > 6000)
+        if(_actualTimePlay > totalTime)
         {
             //the game ended
-            _playingGame = false;
+            _isPlayingGame = false;
             return;
         }
 
-        if(lastAsteroidTime + _levels[actualLevel].timeBetweenLastAsteroid <= _timePlay)
+        if(_lastAsteroidTime + levels[_actualLevel].timeBetweenLastAsteroid <= _actualTimePlay)
         {
-            //instatiate a new asteroid
-            GameObject asteroid = PoolManager.Instance().getObject();
+            //get a random asteroid
+            GameObject asteroid = getRandomAsteroid(levels[_actualLevel].specialAsteroidPercent);
+            
+            //set the random velocity
             Movement mv = asteroid.GetComponent<Movement>();
-            mv.Velocity = Random.Range(_levels[actualLevel].velocityMin, _levels[actualLevel].velocityMax);
+            mv.Velocity = Random.Range(levels[_actualLevel].velocityMin, levels[_actualLevel].velocityMax);
 
             Vector3 asteroidSize = asteroid.GetComponent<Renderer>().bounds.size;
 
+            //set the original position
             Vector3 initialPosition = Vector3.zero;
-            initialPosition.x = Random.Range(bottomLeft.x + asteroidSize.x, topRight.x - asteroidSize.x);
-            initialPosition.y = topRight.y + asteroidSize.y;
+            initialPosition.x = Random.Range(_bottomLeft.x + asteroidSize.x, _topRight.x - asteroidSize.x);
+            initialPosition.y = _topRight.y + asteroidSize.y;
             asteroid.transform.localPosition = initialPosition; 
 
+            //set when the user is damaged
             Damage d = asteroid.GetComponent<Damage>();
-            d.LimitY = bottomLeft.y;
-            lastAsteroidTime = _timePlay;
+            d.LimitY = _bottomLeft.y;
+            _lastAsteroidTime = _actualTimePlay;
         }
 
-        while(actualLevel < _levels.Length && _timePlay > _levels[actualLevel + 1].timeActivation)
+        while(_actualLevel < levels.Length && _actualTimePlay > levels[_actualLevel + 1].timeActivation)
         {
-            ++actualLevel;
+            ++_actualLevel;
         }
     }
 
+    /// <summary>
+    /// prints and updates the ui
+    /// </summary>
     void UpdateUI()
     {
 
     }
 
+    /// <summary>
+    /// Damages the user
+    /// </summary>
     public void Damage()
     {
-
+        --_actualLives;
+        if(_actualLives <= 0)
+        {
+            //gameover
+            _isPlayingGame = false;
+        }
     }
 
-
+    /// <summary>
+    /// An asteroid is destroyed
+    /// </summary>
     public void AsteroidDestroyed()
     {
-
+        _actualScore++;
     }
+
+    /// <summary>
+    /// Return an asteroid from the pools
+    /// </summary>
+    /// <param name="percent"></param>
+    /// <returns></returns>
+    public GameObject getRandomAsteroid(float percent)
+    {
+        if(Random.value < percent)
+        {
+            return specialPool.getObject();
+        }
+        else
+        {
+            return normalPool.getObject();
+        }
+    }
+
+    /// <summary>
+    /// return a normal asteroid
+    /// </summary>
+    /// <returns></returns>
+    public GameObject getNormalAsteroid()
+    {
+        return normalPool.getObject();
+    }
+
+    /// <summary>
+    /// Returns an asteroid to the correct pool
+    /// </summary>
+    /// <param name="go"></param>
+    public void releaseAsteroid(GameObject go)
+    {
+        normalPool.releaseObject(go);
+        specialPool.releaseObject(go);
+    }
+
+    public void resetGame()
+    {
+        _actualTimePlay = 0;
+        _actualLives = totalLives;
+        _isPlayingGame = true;
+        _actualScore = 0;
+        _actualLevel = 0;
+    }
+
 }

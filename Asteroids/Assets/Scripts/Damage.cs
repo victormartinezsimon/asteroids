@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
-    public float _y;
+    private float _y;
 
     public float LimitY
     {
@@ -17,7 +17,7 @@ public class Damage : MonoBehaviour
         if(transform.localPosition.y < _y)
         {
             GameManager.Instance().Damage();
-            PoolManager.Instance().releaseObject(this.gameObject);
+            GameManager.Instance().releaseAsteroid(this.gameObject);
         }
     }
 }

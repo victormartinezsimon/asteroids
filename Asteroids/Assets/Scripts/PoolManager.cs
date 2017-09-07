@@ -11,18 +11,9 @@ public class PoolManager : MonoBehaviour
     private List<GameObject> m_unused;
     private List<GameObject> m_used;
 
-    static PoolManager _instance;
-
-    public static PoolManager Instance()
-    {
-        return _instance;
-    }
-
     // Use this for initialization
     void Awake()
     {
-        _instance = this;
-
         m_unused = new List<GameObject>();
         m_used = new List<GameObject>();
 
@@ -57,10 +48,12 @@ public class PoolManager : MonoBehaviour
     public void releaseObject(GameObject go)
     {
         int index = m_used.FindIndex(e =>  e == go);
-        m_used.RemoveAt(index);
-        m_unused.Add(go);
-        go.SetActive(false);
+        if(index >= 0)
+        {
+            //we check that the object is from this pool
+            m_used.RemoveAt(index);
+            m_unused.Add(go);
+            go.SetActive(false);
+        }
     }
-
-
 }
