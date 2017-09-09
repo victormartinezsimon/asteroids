@@ -147,34 +147,41 @@ MonoBehaviour:
   - name: Level 10
     timeActivation: 10
     timeBetweenLastAsteroid: 1.1
-    velocityMin: 2
-    velocityMax: 7
+    velocityMin: 1
+    velocityMax: 5
     specialAsteroidPercent: 0.1
   - name: Level 20
     timeActivation: 20
-    timeBetweenLastAsteroid: 0.9
+    timeBetweenLastAsteroid: 1
     velocityMin: 3
     velocityMax: 8
     specialAsteroidPercent: 0.3
   - name: Level 30
     timeActivation: 30
-    timeBetweenLastAsteroid: 0.8
-    velocityMin: 5
-    velocityMax: 9
+    timeBetweenLastAsteroid: 0.9
+    velocityMin: 3
+    velocityMax: 8
     specialAsteroidPercent: 0.4
   - name: Level 40
     timeActivation: 40
-    timeBetweenLastAsteroid: 0.7
-    velocityMin: 7
-    velocityMax: 10
+    timeBetweenLastAsteroid: 0.8
+    velocityMin: 5
+    velocityMax: 9
     specialAsteroidPercent: 0.6
   - name: Level 50
     timeActivation: 50
-    timeBetweenLastAsteroid: 0.6
-    velocityMin: 7
-    velocityMax: 10
+    timeBetweenLastAsteroid: 0.8
+    velocityMin: 5
+    velocityMax: 9
     specialAsteroidPercent: 0.8
   normalPool: {fileID: 114381670370977696}
   specialPool: {fileID: 114302123339077824}
-  totalLives: 50
+  totalLives: 5
   totalTime: 60
+  UIOnPlay: {fileID: 0}
+  UIDamage: {fileID: 0}
+  UILivesText: {fileID: 0}
+  UITimeText: {fileID: 0}
+  UIScoreText: {fileID: 0}
+  UIOnStandby: {fileID: 0}
+  UIFinalScore: {fileID: 0}

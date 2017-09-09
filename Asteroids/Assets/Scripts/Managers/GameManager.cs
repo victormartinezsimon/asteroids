@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,15 @@ public class GameManager : MonoBehaviour
     public int totalLives = 5;
     public float totalTime = 60;
 
+    [Header("UI parameters")]
+    public GameObject UIOnPlay;
+    public GameObject UIDamage;
+    public Text UILivesText;
+    public Text UITimeText;
+    public Text UIScoreText;
+    public GameObject UIOnStandby;
+    public Text UIFinalScore;
+
     private bool _isPlayingGame = false;
     private int _actualLevel = 0;
     private float _lastAsteroidTime = 0;
@@ -39,6 +49,8 @@ public class GameManager : MonoBehaviour
     private float _actualTimePlay;
     private int _actualScore;
 
+    private static string PLAYER_PREFS_KEY = "BEST_SCORE";
+
     // Use this for initialization
     void Awake()
     {
@@ -47,6 +59,8 @@ public class GameManager : MonoBehaviour
 
         _bottomLeft = Camera.main.ScreenToWorldPoint(Vector3.zero);
         _topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+        UIFinalScore.text = "Best SCORE: " + PlayerPrefs.GetFloat(PLAYER_PREFS_KEY);
 
     }
 
@@ -57,13 +71,6 @@ public class GameManager : MonoBehaviour
         if (_isPlayingGame)
         {
             UpdateAsteroids(Time.deltaTime);
-        }
-        else
-        {
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                resetGame();
-            }
         }
     }
     /// <summary>
@@ -76,8 +83,7 @@ public class GameManager : MonoBehaviour
 
         if(_actualTimePlay > totalTime)
         {
-            //the game ended
-            _isPlayingGame = false;
+            GameOver();
             return;
         }
 
@@ -115,7 +121,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void UpdateUI()
     {
-
+        if(_isPlayingGame)
+        {
+            UITimeText.text = (totalTime - _actualTimePlay).ToString("F2");
+            UILivesText.text = "Lives: " + _actualLives;
+            UIScoreText.text = _actualScore.ToString();
+        }
     }
 
     /// <summary>
@@ -124,10 +135,10 @@ public class GameManager : MonoBehaviour
     public void Damage()
     {
         --_actualLives;
+        UIDamage.SetActive(true);
         if(_actualLives <= 0)
         {
-            //gameover
-            _isPlayingGame = false;
+            GameOver();
         }
     }
 
@@ -203,5 +214,24 @@ public class GameManager : MonoBehaviour
         _actualScore = 0;
         _actualLevel = 0;
         _lastAsteroidTime = -levels[_actualLevel].timeBetweenLastAsteroid;//setting this time, a asteroid will be created at time 0
+
+        UIOnStandby.SetActive(false);
+        UIOnPlay.SetActive(true);
+    }
+
+    /// <summary>
+    /// call it when the game is finished
+    /// </summary>
+    public void GameOver()
+    {
+        _isPlayingGame = false;
+        UIOnStandby.SetActive(true);
+        UIOnPlay.SetActive(false);
+
+        float best = PlayerPrefs.GetFloat(PLAYER_PREFS_KEY);
+        best = Mathf.Max(best, _actualScore);
+        PlayerPrefs.SetFloat(PLAYER_PREFS_KEY, best);
+
+        UIFinalScore.text = "YOUR SCORE: " + _actualScore + "\n" + "Best SCORE: " + best;
     }
 }
