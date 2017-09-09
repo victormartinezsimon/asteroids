@@ -157,12 +157,29 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// return a normal asteroid
+    /// return a normal asteroid after destroy the special asteroid
     /// </summary>
     /// <returns></returns>
-    public GameObject getNormalAsteroid()
+    public void createANormalAsteroid(Vector3 position, float velocity = 0)
     {
-        return normalPool.getObject();
+        GameObject asteroid = normalPool.getObject();
+
+        Movement mv = asteroid.GetComponent<Movement>();
+        if(velocity == 0)
+        {
+            mv.Velocity = Random.Range(levels[_actualLevel].velocityMin, levels[_actualLevel].velocityMax);
+        }
+        else
+        {
+            mv.Velocity = velocity;
+        }
+
+        asteroid.transform.position = position;
+
+        //set when the user is damaged
+        Damage d = asteroid.GetComponent<Damage>();
+        d.LimitY = _bottomLeft.y;
+        _lastAsteroidTime = _actualTimePlay;
     }
 
     /// <summary>
@@ -175,6 +192,9 @@ public class GameManager : MonoBehaviour
         specialPool.releaseObject(go);
     }
 
+    /// <summary>
+    /// restarts a game
+    /// </summary>
     public void resetGame()
     {
         _actualTimePlay = 0;
@@ -182,6 +202,6 @@ public class GameManager : MonoBehaviour
         _isPlayingGame = true;
         _actualScore = 0;
         _actualLevel = 0;
+        _lastAsteroidTime = -levels[_actualLevel].timeBetweenLastAsteroid;//setting this time, a asteroid will be created at time 0
     }
-
 }

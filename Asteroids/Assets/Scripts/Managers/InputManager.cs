@@ -20,14 +20,13 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero);
 
             if(hit.collider != null)
             {
-                hit.collider.gameObject.GetComponent<DeleteAsteroid>().AsteroidHit();
+                hit.collider.gameObject.GetComponent<Click>().Action();
                 GameManager.Instance().AsteroidDestroyed();
             }
         }

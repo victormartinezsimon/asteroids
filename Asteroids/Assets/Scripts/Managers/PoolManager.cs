@@ -27,6 +27,10 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns a object
+    /// </summary>
+    /// <returns></returns>
     public GameObject getObject()
     {
         //if there is no objects, we create a new one
@@ -45,6 +49,10 @@ public class PoolManager : MonoBehaviour
         return toReturn;
     }
 
+    /// <summary>
+    /// tell the poll that this object is not needed
+    /// </summary>
+    /// <param name="go"></param>
     public void releaseObject(GameObject go)
     {
         int index = m_used.FindIndex(e =>  e == go);

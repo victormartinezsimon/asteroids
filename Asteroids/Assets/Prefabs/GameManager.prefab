@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1728888882612408}
+  m_IsPrefabParent: 1
+--- !u!1 &1728888882612408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4021405353938644}
+  - component: {fileID: 114894575779083906}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1842987759325104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4913118805243424}
+  - component: {fileID: 114302123339077824}
+  m_Layer: 0
+  m_Name: SpecialPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1899001203281468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4603978790639348}
+  - component: {fileID: 114381670370977696}
+  m_Layer: 0
+  m_Name: NormalPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4021405353938644
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1728888882612408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4603978790639348}
+  - {fileID: 4913118805243424}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4603978790639348
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899001203281468}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4021405353938644}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4913118805243424
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842987759325104}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4021405353938644}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114302123339077824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842987759325104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5508b50cefc9114d96d8e3c1fa64603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asteroid: {fileID: 1292519644148914, guid: db879726ee179054aa470d5b86fda55c, type: 2}
+  _initialSize: 10
+--- !u!114 &114381670370977696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899001203281468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5508b50cefc9114d96d8e3c1fa64603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asteroid: {fileID: 1836840438940716, guid: 88baf61bdc32ec54fb5a8e7de66e9d93, type: 2}
+  _initialSize: 10
+--- !u!114 &114894575779083906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1728888882612408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56d80058c7ffaf49a892f1c99eeb5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - name: Level 0
+    timeActivation: 0
+    timeBetweenLastAsteroid: 1.5
+    velocityMin: 1
+    velocityMax: 5
+    specialAsteroidPercent: 0
+  - name: Level 10
+    timeActivation: 10
+    timeBetweenLastAsteroid: 1.1
+    velocityMin: 2
+    velocityMax: 7
+    specialAsteroidPercent: 0.1
+  - name: Level 20
+    timeActivation: 20
+    timeBetweenLastAsteroid: 0.9
+    velocityMin: 3
+    velocityMax: 8
+    specialAsteroidPercent: 0.3
+  - name: Level 30
+    timeActivation: 30
+    timeBetweenLastAsteroid: 0.8
+    velocityMin: 5
+    velocityMax: 9
+    specialAsteroidPercent: 0.4
+  - name: Level 40
+    timeActivation: 40
+    timeBetweenLastAsteroid: 0.7
+    velocityMin: 7
+    velocityMax: 10
+    specialAsteroidPercent: 0.6
+  - name: Level 50
+    timeActivation: 50
+    timeBetweenLastAsteroid: 0.6
+    velocityMin: 7
+    velocityMax: 10
+    specialAsteroidPercent: 0.8
+  normalPool: {fileID: 114381670370977696}
+  specialPool: {fileID: 114302123339077824}
+  totalLives: 50
+  totalTime: 60
