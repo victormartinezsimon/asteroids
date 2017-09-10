@@ -39,6 +39,5 @@ public class Blink : MonoBehaviour
             _timeAcumForBlink = 0;
             this.gameObject.SetActive(false);
         }
-
     }
 }

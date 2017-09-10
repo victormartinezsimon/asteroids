@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour
     public struct Levels
     {
         public string name; //its only because the inspector will use this
-        public float timeActivation;
+        public float timeActivation;//time when this level is valid
         public float timeBetweenLastAsteroid;
-        public float velocityMin;
-        public float velocityMax;
+        public float velocityMin;//for random values
+        public float velocityMax;//for random values
         public float specialAsteroidPercent;
     }
 
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
             Movement mv = asteroid.GetComponent<Movement>();
             mv.Velocity = Random.Range(levels[_actualLevel].velocityMin, levels[_actualLevel].velocityMax);
 
+            //get size of the asteroid
             Vector3 asteroidSize = asteroid.GetComponent<Renderer>().bounds.size;
 
             //set the original position
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour
             _lastAsteroidTime = _actualTimePlay;
         }
 
+        //we check that there is more levels and the time is upper
         while(_actualLevel < levels.Length && _actualTimePlay > levels[_actualLevel + 1].timeActivation)
         {
             ++_actualLevel;
@@ -123,7 +125,7 @@ public class GameManager : MonoBehaviour
     {
         if(_isPlayingGame)
         {
-            UITimeText.text = (totalTime - _actualTimePlay).ToString("F2");
+            UITimeText.text = (totalTime - _actualTimePlay).ToString("F2");//format 00.00
             UILivesText.text = "Lives: " + _actualLives;
             UIScoreText.text = _actualScore.ToString();
         }
@@ -168,7 +170,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// return a normal asteroid after destroy the special asteroid
+    /// return a normal asteroid. If there is no velocity set, we get a random value
     /// </summary>
     /// <returns></returns>
     public void createANormalAsteroid(Vector3 position, float velocity = 0)
